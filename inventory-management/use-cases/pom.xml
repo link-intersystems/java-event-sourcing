@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.link-intersystems.event-sourcing</groupId>
+        <artifactId>inventory-management</artifactId>
+        <version>1</version>
+    </parent>
+
+    <artifactId>use-cases</artifactId>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.link-intersystems.event-sourcing</groupId>
+            <artifactId>entities</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.link-intersystems.event-sourcing</groupId>
+            <artifactId>entities</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <version>1</version>
+        </dependency>
+    </dependencies>
+</project>

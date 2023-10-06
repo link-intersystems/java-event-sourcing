@@ -37,4 +37,25 @@ class QuantityTest {
         assertNotSame(result, quantity);
         assertEquals(5, result.getValue());
     }
+
+    @Test
+    void testEquals() {
+        Quantity quantity1 = new Quantity(5);
+        Quantity quantity2 = new Quantity(5);
+        Quantity quantity3 = new Quantity(3);
+
+        assertEquals(quantity1, quantity2);
+        assertEquals(quantity2, quantity1);
+        assertNotEquals(quantity1, quantity3);
+    }
+
+    @Test
+    void testHashCode() {
+        Quantity quantity1 = new Quantity(5);
+        Quantity quantity2 = new Quantity(5);
+
+        assertEquals(quantity1.hashCode(), quantity2.hashCode());
+    }
+
+
 }

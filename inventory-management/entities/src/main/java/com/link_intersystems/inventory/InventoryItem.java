@@ -6,7 +6,7 @@ import static java.util.Objects.*;
 
 public class InventoryItem {
 
-    static abstract class QuantityEvent {
+    static abstract class QuantityEvent extends InventoryItemEvent {
 
         private InventoryItemIdentifier identifier;
 
@@ -17,6 +17,12 @@ public class InventoryItem {
             this.quantityDiff = requireNonNull(quantityDiff);
         }
 
+        @Override
+        public InventoryItemIdentifier getIdentifier() {
+            return identifier;
+        }
+
+        @Override
         public void apply(InventoryItem inventoryItem) {
             if (!Objects.equals(this.identifier, inventoryItem.getIdentifier())) {
                 throw new IllegalArgumentException(this + " can not be applied to " + inventoryItem + ", because of a different identifier.");
@@ -27,6 +33,23 @@ public class InventoryItem {
         }
 
         protected abstract Quantity getNewQuantity(InventoryItem inventoryItem, Quantity quantityDiff);
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            QuantityEvent quantityEvent = (QuantityEvent) o;
+            if (!Objects.equals(quantityDiff, quantityEvent.quantityDiff)) {
+                return false;
+            }
+
+            return super.equals(o);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), quantityDiff);
+        }
     }
 
     private InventoryItemIdentifier identifier;
@@ -48,4 +71,5 @@ public class InventoryItem {
     public Quantity getQuantity() {
         return quantity;
     }
+
 }
