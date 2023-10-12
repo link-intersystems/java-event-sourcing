@@ -8,9 +8,9 @@ class ShipItemEventTest {
 
     @Test
     void reduceEvent() {
+        ShipItemEvent shipItemEvent = new ShipItemEvent(new InventoryItemIdentifier("a"), new Quantity(5));
         InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
         inventoryItem.setQuantity(new Quantity(10));
-        ShipItemEvent shipItemEvent = new ShipItemEvent(new InventoryItemIdentifier("a"), new Quantity(5));
 
         shipItemEvent.apply(inventoryItem);
 

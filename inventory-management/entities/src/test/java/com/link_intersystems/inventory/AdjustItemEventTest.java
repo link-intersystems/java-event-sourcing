@@ -9,8 +9,8 @@ class AdjustItemEventTest {
 
     @Test
     void increase() {
-        InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
         AdjustItemEvent adjustEvent = AdjustItemEvent.create(new InventoryItemIdentifier("a"), 5);
+        InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
 
         adjustEvent.apply(inventoryItem);
 
@@ -20,12 +20,13 @@ class AdjustItemEventTest {
     @Test
     void decrease() {
         InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
-        inventoryItem.setQuantity(new Quantity(10));
-        AdjustItemEvent adjustEvent = AdjustItemEvent.create(new InventoryItemIdentifier("a"), -5);
+        inventoryItem.setQuantity(new Quantity(5));
+
+        AdjustItemEvent adjustEvent = AdjustItemEvent.create(new InventoryItemIdentifier("a"), -3);
 
         adjustEvent.apply(inventoryItem);
 
-        assertEquals(5, inventoryItem.getQuantity().getValue());
+        assertEquals(2, inventoryItem.getQuantity().getValue());
     }
 
 }

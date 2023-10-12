@@ -57,7 +57,7 @@ public class InventoryItem {
     private Quantity quantity = new Quantity(0);
 
     public InventoryItem(InventoryItemIdentifier identifier) {
-        this.identifier = identifier;
+        this.identifier = requireNonNull(identifier);
     }
 
     public InventoryItemIdentifier getIdentifier() {

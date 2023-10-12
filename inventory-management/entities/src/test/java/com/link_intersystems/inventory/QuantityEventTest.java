@@ -4,16 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QualityEventTest {
-
-    @Test
-    void applyAddEventWrongIdentifier() {
-        InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("b"));
-        InventoryItem.QuantityEvent quantityEvent = createEvent("a", 5);
-
-        assertThrows(IllegalArgumentException.class, () -> quantityEvent.apply(inventoryItem));
-    }
-
+class QuantityEventTest {
 
     @Test
     void apply() {
@@ -25,6 +16,14 @@ class QualityEventTest {
         event.apply(inventoryItem);
 
         assertEquals(15, inventoryItem.getQuantity().getValue());
+    }
+
+    @Test
+    void applyWrongIdentifier() {
+        InventoryItem.QuantityEvent event = createEvent("a", 5);
+        InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("b"));
+
+        assertThrows(IllegalArgumentException.class, () -> event.apply(inventoryItem));
     }
 
 
