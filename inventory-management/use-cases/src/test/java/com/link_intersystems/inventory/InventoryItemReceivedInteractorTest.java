@@ -19,15 +19,12 @@ class InventoryItemReceivedInteractorTest {
 
     @Test
     void newInventoryItemReceived() {
-        InventoryItemReceivedUseCase.RequestModel requestModel = new InventoryItemReceivedUseCase.RequestModel();
-
-        requestModel.setItemIdentifier("b");
-        requestModel.setReceivedQuantity(10);
+        InventoryItemReceivedUseCase.RequestModel requestModel = new InventoryItemReceivedUseCase.RequestModel("b", 10);
 
         InventoryItemReceivedUseCase.ResponseModel responseModel = interactor.itemsReceived(requestModel);
 
-        assertEquals("b", responseModel.getItemIdentifier());
-        assertEquals(10, responseModel.getActualQuantity());
+        assertEquals("b", responseModel.itemIdentifier());
+        assertEquals(10, responseModel.actualQuantity());
     }
 
     @Test
@@ -35,15 +32,12 @@ class InventoryItemReceivedInteractorTest {
         ReceiveItemEvent receiveItemEvent = new ReceiveItemEvent(new InventoryItemIdentifier("a"), new Quantity(6));
         repository.persist(receiveItemEvent);
 
-        InventoryItemReceivedUseCase.RequestModel requestModel = new InventoryItemReceivedUseCase.RequestModel();
-
-        requestModel.setItemIdentifier("a");
-        requestModel.setReceivedQuantity(15);
+        InventoryItemReceivedUseCase.RequestModel requestModel = new InventoryItemReceivedUseCase.RequestModel("a", 15);
 
         InventoryItemReceivedUseCase.ResponseModel responseModel = interactor.itemsReceived(requestModel);
 
-        assertEquals("a", responseModel.getItemIdentifier());
-        assertEquals(21, responseModel.getActualQuantity());
+        assertEquals("a", responseModel.itemIdentifier());
+        assertEquals(21, responseModel.actualQuantity());
 
         repository.assertEventPersisted(new ReceiveItemEvent(new InventoryItemIdentifier("a"), new Quantity(15)));
     }
