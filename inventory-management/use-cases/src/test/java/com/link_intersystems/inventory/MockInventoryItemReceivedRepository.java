@@ -17,7 +17,6 @@ class MockInventoryItemReceivedRepository implements InventoryItemReceivedReposi
         }
 
         InventoryItem inventoryItem = new InventoryItem(identifier);
-        Collections.sort(inventoryItemEvents);
         new InventoryItemEventList(inventoryItemEvents).apply(inventoryItem);
         return inventoryItem;
     }
@@ -27,6 +26,7 @@ class MockInventoryItemReceivedRepository implements InventoryItemReceivedReposi
         InventoryItemIdentifier identifier = itemEvent.getIdentifier();
         List<InventoryItemEvent> inventoryItemEvents = eventStore.computeIfAbsent(identifier, id -> new ArrayList<>());
         inventoryItemEvents.add(itemEvent);
+        Collections.sort(inventoryItemEvents);
     }
 
     public void assertEventPersisted(InventoryItemEvent event) {
