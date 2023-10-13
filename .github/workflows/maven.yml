@@ -29,20 +29,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Restore Maven cache
-        uses: skjolber/maven-cache-github-action@v1
-        with:
-          step: restore
-
       - name: Build with Maven
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-        run: mvn -Pcoveralls -B --update-snapshots package coveralls:report --file pom.xml
-
-      - name: Save Maven cache
-        uses: skjolber/maven-cache-github-action@v1
-        with:
-          step: save
+        run: mvn -Pcoveralls -B --update-snapshots test coveralls:report --file pom.xml
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
