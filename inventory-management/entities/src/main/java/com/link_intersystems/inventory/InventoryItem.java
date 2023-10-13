@@ -23,7 +23,7 @@ public class InventoryItem {
         }
 
         @Override
-        public void apply(InventoryItem inventoryItem) {
+        protected void doApply(InventoryItem inventoryItem) {
             if (!Objects.equals(this.identifier, inventoryItem.getIdentifier())) {
                 throw new IllegalArgumentException(this + " can not be applied to " + inventoryItem + ", because of a different identifier.");
             }

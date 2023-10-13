@@ -64,6 +64,17 @@ class InventoryItemEventListTest {
         verify(event2).apply(inventoryItem);
     }
 
+
+    @Test
+    void sortOrder() {
+        InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
+
+        events.apply(inventoryItem);
+
+        verify(event1).apply(inventoryItem);
+        verify(event2).apply(inventoryItem);
+    }
+
     @Test
     void applyDifferentIdentifier() {
         InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("b"));

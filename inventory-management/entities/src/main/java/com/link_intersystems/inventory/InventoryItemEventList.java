@@ -23,7 +23,9 @@ public class InventoryItemEventList extends AbstractList<InventoryItemEvent> {
 
             this.events.add(event);
         }
+
     }
+
     public InventoryItemIdentifier getIdentifier() {
         return identifier;
     }

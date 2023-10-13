@@ -1,9 +1,6 @@
 package com.link_intersystems.inventory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +17,7 @@ class MockInventoryItemReceivedRepository implements InventoryItemReceivedReposi
         }
 
         InventoryItem inventoryItem = new InventoryItem(identifier);
+        Collections.sort(inventoryItemEvents);
         new InventoryItemEventList(inventoryItemEvents).apply(inventoryItem);
         return inventoryItem;
     }

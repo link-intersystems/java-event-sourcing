@@ -29,4 +29,9 @@ public class InventoryItemIdentifier {
     public int hashCode() {
         return Objects.hash(getValue());
     }
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
 }
