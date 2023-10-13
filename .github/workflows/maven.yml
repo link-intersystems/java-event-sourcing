@@ -21,19 +21,32 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
+      - name: Restore Maven cache
+        uses: skjolber/maven-cache-github-action@v1
+        with:
+          step: restore
+
       - name: Build with Maven
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-        run: mvn -Pcoveralls -B package coveralls:report --file pom.xml
+        run: mvn -Pcoveralls -B --update-snapshots package coveralls:report --file pom.xml
+
+      - name: Save Maven cache
+        uses: skjolber/maven-cache-github-action@v1
+        with:
+          step: save
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+
       - name: Clear Caches
         run: curl -X PURGE https://camo.githubusercontent.com/935a84aa1b7bc90c659f17d091a9e30cc6c82c9056e91c58730e87acf9e96f0f/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f6c696e6b2d696e74657273797374656d732f6a6176612d6576656e742d736f757263696e672f62616467652e7376673f6272616e63683d6d61696e
