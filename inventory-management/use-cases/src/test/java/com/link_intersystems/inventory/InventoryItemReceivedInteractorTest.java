@@ -3,8 +3,6 @@ package com.link_intersystems.inventory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryItemReceivedInteractorTest {
@@ -34,9 +32,8 @@ class InventoryItemReceivedInteractorTest {
 
     @Test
     void itemsReceived() {
-        InventoryItemFixture inventoryItemFixture = new InventoryItemFixture();
-        List<InventoryItemEvent> events = inventoryItemFixture.getEvents6InStock("a");
-        events.forEach(repository::persist);
+        ReceiveItemEvent receiveItemEvent = new ReceiveItemEvent(new InventoryItemIdentifier("a"), new Quantity(6));
+        repository.persist(receiveItemEvent);
 
         InventoryItemReceivedUseCase.RequestModel requestModel = new InventoryItemReceivedUseCase.RequestModel();
 

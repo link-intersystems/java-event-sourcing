@@ -2,17 +2,15 @@ package com.link_intersystems.inventory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class InventoryItemTest {
 
     private InventoryItem inventoryItem;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
     }
 

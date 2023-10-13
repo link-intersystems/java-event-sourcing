@@ -1,7 +1,5 @@
 package com.link_intersystems.inventory;
 
-import java.util.Optional;
-
 import static java.util.Objects.*;
 
 public class InventoryItemReceivedInteractor implements InventoryItemReceivedUseCase {

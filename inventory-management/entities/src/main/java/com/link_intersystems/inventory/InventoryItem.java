@@ -6,6 +6,25 @@ import static java.util.Objects.*;
 
 public class InventoryItem {
 
+    private InventoryItemIdentifier identifier;
+    private Quantity quantity = new Quantity(0);
+
+    public InventoryItem(InventoryItemIdentifier identifier) {
+        this.identifier = requireNonNull(identifier);
+    }
+
+    public InventoryItemIdentifier getIdentifier() {
+        return identifier;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
+    void setQuantity(Quantity quantity) {
+        this.quantity = requireNonNull(quantity);
+    }
+
     static abstract class QuantityEvent extends InventoryItemEvent {
 
         private InventoryItemIdentifier identifier;
@@ -50,26 +69,6 @@ public class InventoryItem {
         public int hashCode() {
             return Objects.hash(super.hashCode(), quantityDiff);
         }
-    }
-
-    private InventoryItemIdentifier identifier;
-
-    private Quantity quantity = new Quantity(0);
-
-    public InventoryItem(InventoryItemIdentifier identifier) {
-        this.identifier = requireNonNull(identifier);
-    }
-
-    public InventoryItemIdentifier getIdentifier() {
-        return identifier;
-    }
-
-    void setQuantity(Quantity quantity) {
-        this.quantity = requireNonNull(quantity);
-    }
-
-    public Quantity getQuantity() {
-        return quantity;
     }
 
 }

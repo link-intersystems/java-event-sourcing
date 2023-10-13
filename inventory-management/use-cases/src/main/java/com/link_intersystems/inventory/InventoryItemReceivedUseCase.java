@@ -2,6 +2,8 @@ package com.link_intersystems.inventory;
 
 public interface InventoryItemReceivedUseCase {
 
+    public ResponseModel itemsReceived(RequestModel requestModel);
+
     public static class RequestModel {
 
         private int receivedQuantity;
@@ -29,22 +31,20 @@ public interface InventoryItemReceivedUseCase {
         private int actualQuantity;
         private String itemIdentifier;
 
-        public void setActualQuantity(int actualQuantity) {
-            this.actualQuantity = actualQuantity;
-        }
-
         public int getActualQuantity() {
             return actualQuantity;
         }
 
-        public void setItemIdentifier(String itemIdentifier) {
-            this.itemIdentifier = itemIdentifier;
+        public void setActualQuantity(int actualQuantity) {
+            this.actualQuantity = actualQuantity;
         }
 
         public String getItemIdentifier() {
             return itemIdentifier;
         }
-    }
 
-    public ResponseModel itemsReceived(RequestModel requestModel);
+        public void setItemIdentifier(String itemIdentifier) {
+            this.itemIdentifier = itemIdentifier;
+        }
+    }
 }
