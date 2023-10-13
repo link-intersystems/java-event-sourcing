@@ -64,15 +64,10 @@ class InventoryItemEventListTest {
         verify(event2).apply(inventoryItem);
     }
 
-
     @Test
-    void sortOrder() {
+    void applyEmptyList() {
         InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
-
-        events.apply(inventoryItem);
-
-        verify(event1).apply(inventoryItem);
-        verify(event2).apply(inventoryItem);
+        new InventoryItemEventList().apply(inventoryItem);
     }
 
     @Test
