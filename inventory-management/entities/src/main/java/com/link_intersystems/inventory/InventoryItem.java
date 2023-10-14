@@ -27,23 +27,16 @@ public class InventoryItem {
 
     static abstract class QuantityEvent extends InventoryItemEvent {
 
-        private InventoryItemIdentifier identifier;
-
         private Quantity quantityDiff;
 
         public QuantityEvent(InventoryItemIdentifier identifier, Quantity quantityDiff) {
-            this.identifier = requireNonNull(identifier);
+            super(identifier);
             this.quantityDiff = requireNonNull(quantityDiff);
         }
 
         @Override
-        public InventoryItemIdentifier getIdentifier() {
-            return identifier;
-        }
-
-        @Override
         protected void doApply(InventoryItem inventoryItem) {
-            if (!Objects.equals(this.identifier, inventoryItem.getIdentifier())) {
+            if (!Objects.equals(this.getIdentifier(), inventoryItem.getIdentifier())) {
                 throw new IllegalArgumentException(this + " can not be applied to " + inventoryItem + ", because of a different identifier.");
             }
 

@@ -11,28 +11,23 @@ import static org.mockito.Mockito.*;
 
 class InventoryItemEventListTest {
 
-    private InventoryItemEvent event1;
-    private InventoryItemEvent event2;
+    private InventoryItemEventMock event1;
+    private InventoryItemEventMock event2;
     private InventoryItemEventList events;
 
     @BeforeEach
     void setUp() {
-        event1 = itemEvent("a");
-        event2 = itemEvent("a");
+
+        event1 = new InventoryItemEventMock("a");
+        event2 = new InventoryItemEventMock("a");
 
         events = new InventoryItemEventList(event1, event2);
-    }
-
-    private InventoryItemEvent itemEvent(String identifier) {
-        InventoryItemEvent event = mock(InventoryItemEvent.class);
-        when(event.getIdentifier()).thenReturn(new InventoryItemIdentifier(identifier));
-        return event;
     }
 
     @Test
     void differentIdentifiers() {
         List<InventoryItemEvent> listWithDifferentIdentifiers = new ArrayList<>(events);
-        listWithDifferentIdentifiers.add(itemEvent("b"));
+        listWithDifferentIdentifiers.add(InventoryItemEventMock.spy("b"));
 
         assertThrows(IllegalArgumentException.class, () -> new InventoryItemEventList(listWithDifferentIdentifiers));
     }
@@ -57,11 +52,13 @@ class InventoryItemEventListTest {
     @Test
     void apply() {
         InventoryItem inventoryItem = new InventoryItem(new InventoryItemIdentifier("a"));
+        InventoryItemEventList events = new InventoryItemEventList(event1.spy(), event2.spy());
 
         events.apply(inventoryItem);
 
-        verify(event1).apply(inventoryItem);
-        verify(event2).apply(inventoryItem);
+        for (InventoryItemEvent event : events) {
+            verify(event).apply(inventoryItem);
+        }
     }
 
     @Test

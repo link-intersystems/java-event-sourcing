@@ -4,11 +4,21 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static java.util.Objects.*;
+
 public abstract class InventoryItemEvent implements Comparable<InventoryItemEvent> {
 
+    private InventoryItemIdentifier identifier;
     private LocalDateTime appliedTime;
 
-    public abstract InventoryItemIdentifier getIdentifier();
+
+    public InventoryItemEvent(InventoryItemIdentifier identifier) {
+        this.identifier = requireNonNull(identifier);
+    }
+
+    public InventoryItemIdentifier getIdentifier() {
+        return identifier;
+    }
 
     public LocalDateTime getAppliedTime() {
         return appliedTime;
