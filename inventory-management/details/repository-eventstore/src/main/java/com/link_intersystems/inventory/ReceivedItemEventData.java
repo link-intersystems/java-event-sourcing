@@ -8,15 +8,6 @@ class ReceivedItemEventData {
     private LocalDateTime appliedTime;
     private int quantity;
 
-    public ReceivedItemEventData() {
-    }
-
-    public ReceivedItemEventData(ReceiveItemEvent itemEvent) {
-        this.appliedTime = itemEvent.getAppliedTime();
-        this.identifier = itemEvent.getIdentifier().getValue();
-        this.quantity = itemEvent.getQuantity().getValue();
-    }
-
     public String getIdentifier() {
         return identifier;
     }
