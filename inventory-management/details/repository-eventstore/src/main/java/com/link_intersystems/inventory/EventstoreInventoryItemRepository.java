@@ -3,7 +3,6 @@ package com.link_intersystems.inventory;
 import com.eventstore.dbclient.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -39,8 +38,6 @@ public class EventstoreInventoryItemRepository implements InventoryItemReceivedR
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
 
-        Collections.sort(events);
-
         return new InventoryItemEventList(events);
     }
 
@@ -57,7 +54,10 @@ public class EventstoreInventoryItemRepository implements InventoryItemReceivedR
     private void persist(InventoryItemEvent itemEvent) {
         itemEvent.setAppliedTime(LocalDateTime.now());
         EventData eventData = mapper.toEventData(itemEvent);
-        client.appendToStream(getStreamName(itemEvent.getIdentifier()), eventData);
+        CompletableFuture<WriteResult> resultFuture = client.appendToStream(getStreamName(itemEvent.getIdentifier()), eventData);
+
+        FutureHandler<WriteResult> futureHandler = new FutureHandler<>(resultFuture);
+        futureHandler.waitForResult();
     }
 
     private static String getStreamName(InventoryItemIdentifier identifier) {

@@ -15,9 +15,13 @@ public class FutureHandler<V> {
     }
 
     public <R> R mapWhenPresent(Function<V, R> mappingFunction) {
+        V value = waitForResult();
+        return mappingFunction.apply(value);
+    }
+
+    public V waitForResult() {
         try {
-            V value = this.future.get();
-            return mappingFunction.apply(value);
+            return this.future.get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
