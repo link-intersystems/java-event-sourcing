@@ -9,26 +9,27 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
-class EventstoreInventoryItemReceivedRepositoryTest {
+class EventstoreInventoryItemRepositoryTest {
 
     @Container
     public EventsourceDBTestcontainer eventstoreContainer = new EventsourceDBTestcontainer();
-    private EventstoreInventoryItemReceivedRepository repository;
+    private EventstoreInventoryItemRepository repository;
 
     @BeforeEach
     void setUp() {
-        repository = new EventstoreInventoryItemReceivedRepository(eventstoreContainer.getClient());
+        repository = new EventstoreInventoryItemRepository(eventstoreContainer.getClient());
     }
 
     @Test
-    void receiveItems() {
+    void persistAndLoad() {
         InventoryItemIdentifier identifier = new InventoryItemIdentifier("a");
         repository.persist(new ReceiveItemEvent(identifier, new Quantity(10)));
-        repository.persist(new ReceiveItemEvent(identifier, new Quantity(8)));
+        repository.persist(AdjustItemEvent.create(identifier, 4));
+        repository.persist(new ShipItemEvent(identifier, new Quantity(8)));
 
 
         InventoryItem inventoryItem = repository.findById(identifier);
 
-        assertEquals(18, inventoryItem.getQuantity().getValue());
+        assertEquals(6, inventoryItem.getQuantity().getValue());
     }
 }
