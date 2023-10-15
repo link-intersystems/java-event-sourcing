@@ -11,7 +11,7 @@ public class InventoryItemEventList extends AbstractList<InventoryItemEvent> {
         this(Arrays.asList(events));
     }
 
-    public InventoryItemEventList(List<InventoryItemEvent> events) {
+    public InventoryItemEventList(Collection<? extends InventoryItemEvent> events) {
         for (InventoryItemEvent event : events) {
             if (identifier == null) {
                 identifier = event.getIdentifier();

@@ -3,13 +3,11 @@ package com.link_intersystems.inventory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static java.time.ZoneOffset.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -25,23 +23,15 @@ class InventoryItemEventTest {
     }
 
     @Test
-    void apply() {
-        LocalDateTime localDateTime = LocalDateTime.of(2023, 9, 10, 8, 53, 23);
-        Clock clock = Clock.fixed(localDateTime.toInstant(UTC), UTC);
+    void setAppliedTime() {
+        InventoryItemEventMock event = new InventoryItemEventMock("a");
 
-        event.apply(item, clock);
+        LocalDateTime now = LocalDateTime.now();
+        event.setAppliedTime(now);
 
-        assertEquals(localDateTime, event.getAppliedTime());
-    }
+        assertEquals(now, event.getAppliedTime());
 
-    @Test
-    void alreadyApplied() {
-        LocalDateTime localDateTime = LocalDateTime.of(2023, 9, 10, 8, 53, 23);
-        Clock clock = Clock.fixed(localDateTime.toInstant(UTC), UTC);
-
-        event.apply(item, clock);
-
-        assertThrows(IllegalStateException.class, () -> event.apply(item));
+        assertThrows(IllegalStateException.class, () -> event.setAppliedTime(LocalDateTime.now()));
     }
 
     @Test
@@ -52,8 +42,8 @@ class InventoryItemEventTest {
         InventoryItemEvent event4 = new InventoryItemEventMock("a");
 
 
-        event1.apply(item, Clock.fixed(LocalDateTime.of(2023, 9, 10, 8, 53, 23).toInstant(UTC), UTC));
-        event3.apply(item, Clock.fixed(LocalDateTime.of(2023, 9, 13, 10, 12, 45).toInstant(UTC), UTC));
+        event1.setAppliedTime(LocalDateTime.of(2023, 9, 10, 8, 53, 23));
+        event3.setAppliedTime(LocalDateTime.of(2023, 9, 13, 10, 12, 45));
 
         List<InventoryItemEvent> events = Arrays.asList(event2, event3, event4, event1);
         Collections.sort(events);

@@ -13,7 +13,7 @@ public class InventoryItemEventMock extends InventoryItemEvent {
     }
 
     @Override
-    protected void doApply(InventoryItem inventoryItem) {
+    public void apply(InventoryItem inventoryItem) {
     }
 
     public InventoryItemEvent spy() {

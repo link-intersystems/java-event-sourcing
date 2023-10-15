@@ -1,6 +1,5 @@
 package com.link_intersystems.inventory;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -20,25 +19,19 @@ public abstract class InventoryItemEvent implements Comparable<InventoryItemEven
         return identifier;
     }
 
+    public void setAppliedTime(LocalDateTime appliedTime) {
+        if(this.appliedTime != null){
+            throw new IllegalStateException("Event already applied");
+        }
+        this.appliedTime = appliedTime;
+    }
+
     public LocalDateTime getAppliedTime() {
         return appliedTime;
     }
 
-    public void apply(InventoryItem inventoryItem) {
-        apply(inventoryItem, Clock.systemDefaultZone());
-    }
 
-    public void apply(InventoryItem inventoryItem, Clock clock) {
-        if (appliedTime != null) {
-            throw new IllegalStateException("Event already applied");
-        }
-
-        doApply(inventoryItem);
-
-        this.appliedTime = LocalDateTime.now(clock);
-    }
-
-    protected abstract void doApply(InventoryItem inventoryItem);
+    public abstract void apply(InventoryItem inventoryItem);
 
     @Override
     public int compareTo(InventoryItemEvent o) {
@@ -62,12 +55,16 @@ public abstract class InventoryItemEvent implements Comparable<InventoryItemEven
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InventoryItemEvent inventoryItemEvent = (InventoryItemEvent) o;
-        return Objects.equals(getIdentifier(), inventoryItemEvent.getIdentifier());
+        if (!Objects.equals(getIdentifier(), inventoryItemEvent.getIdentifier())) {
+            return false;
+        }
+
+        return Objects.equals(getAppliedTime(), ((InventoryItemEvent) o).getAppliedTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdentifier());
+        return Objects.hash(getIdentifier(), getAppliedTime());
     }
 
     @Override
@@ -77,4 +74,6 @@ public abstract class InventoryItemEvent implements Comparable<InventoryItemEven
                 "appliedTime=" + appliedTime +
                 '}';
     }
+
+
 }
