@@ -10,17 +10,17 @@ import java.util.TreeSet;
 import static java.util.Objects.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MockInventoryItemReceivedRepository implements InventoryItemReceivedRepository {
+class MockRepository implements InventoryItemReceivedRepository, InventoryItemAdjustedRepository, InventoryItemShippedRepository {
 
     private Map<InventoryItemIdentifier, SortedSet<InventoryItemEvent>> eventStore = new HashMap<>();
 
     private Clock clock;
 
-    public MockInventoryItemReceivedRepository() {
+    public MockRepository() {
         this(Clock.systemDefaultZone());
     }
 
-    public MockInventoryItemReceivedRepository(Clock clock) {
+    public MockRepository(Clock clock) {
         this.clock = requireNonNull(clock);
     }
 

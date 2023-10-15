@@ -10,14 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryItemReceivedInteractorTest {
 
     private InventoryItemReceivedInteractor interactor;
-    private MockInventoryItemReceivedRepository repository;
+    private MockRepository repository;
     private ClockMock clockMock;
 
     @BeforeEach
     void setUp() {
         clockMock = new ClockMock();
-        repository = new MockInventoryItemReceivedRepository(clockMock);
-
+        repository = new MockRepository(clockMock);
         interactor = new InventoryItemReceivedInteractor(repository);
     }
 
@@ -28,7 +27,7 @@ class InventoryItemReceivedInteractorTest {
 
         InventoryItemReceivedUseCase.ResponseModel responseModel = interactor.itemsReceived(requestModel);
 
-        assertEquals("b", responseModel.itemIdentifier());
+        assertEquals("b", responseModel.identifier());
         assertEquals(10, responseModel.actualQuantity());
     }
 
@@ -43,7 +42,7 @@ class InventoryItemReceivedInteractorTest {
 
         InventoryItemReceivedUseCase.ResponseModel responseModel = interactor.itemsReceived(requestModel);
 
-        assertEquals("a", responseModel.itemIdentifier());
+        assertEquals("a", responseModel.identifier());
         assertEquals(21, responseModel.actualQuantity());
 
         ReceiveItemEvent expectedEvent = new ReceiveItemEvent(new InventoryItemIdentifier("a"), new Quantity(15));

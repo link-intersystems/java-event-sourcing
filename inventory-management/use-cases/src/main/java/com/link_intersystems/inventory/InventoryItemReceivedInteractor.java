@@ -12,7 +12,7 @@ public class InventoryItemReceivedInteractor implements InventoryItemReceivedUse
 
     @Override
     public ResponseModel itemsReceived(RequestModel requestModel) {
-        InventoryItemIdentifier identifier = new InventoryItemIdentifier(requestModel.itemIdentifier());
+        InventoryItemIdentifier identifier = new InventoryItemIdentifier(requestModel.identifier());
         Quantity receivedQuantity = new Quantity(requestModel.receivedQuantity());
 
         ReceiveItemEvent receiveItemEvent = new ReceiveItemEvent(identifier, receivedQuantity);
