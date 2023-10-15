@@ -34,6 +34,10 @@ public class InventoryItem {
             this.quantityDiff = requireNonNull(quantityDiff);
         }
 
+        public Quantity getQuantity() {
+            return quantityDiff;
+        }
+
         @Override
         public void apply(InventoryItem inventoryItem) {
             if (!Objects.equals(this.getIdentifier(), inventoryItem.getIdentifier())) {

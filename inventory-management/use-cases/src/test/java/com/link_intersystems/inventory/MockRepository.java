@@ -35,6 +35,20 @@ class MockRepository implements InventoryItemReceivedRepository, InventoryItemAd
     }
 
     @Override
+    public void persist(ShipItemEvent itemEvent) {
+        persist((InventoryItemEvent) itemEvent);
+    }
+
+    @Override
+    public void persist(AdjustItemEvent itemEvent) {
+        persist((InventoryItemEvent) itemEvent);
+    }
+
+    @Override
+    public void persist(ReceiveItemEvent itemEvent) {
+        persist((InventoryItemEvent) itemEvent);
+    }
+
     public void persist(InventoryItemEvent itemEvent) {
         InventoryItemIdentifier identifier = itemEvent.getIdentifier();
         SortedSet<InventoryItemEvent> events = getEvents(identifier);

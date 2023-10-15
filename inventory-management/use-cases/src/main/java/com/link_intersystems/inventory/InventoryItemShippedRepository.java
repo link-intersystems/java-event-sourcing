@@ -1,7 +1,7 @@
 package com.link_intersystems.inventory;
 
 public interface InventoryItemShippedRepository {
-    void persist(InventoryItemEvent itemEvent);
+    void persist(ShipItemEvent itemEvent);
 
     InventoryItem findById(InventoryItemIdentifier identifier);
 }

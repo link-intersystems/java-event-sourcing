@@ -3,5 +3,5 @@ package com.link_intersystems.inventory;
 public interface InventoryItemReceivedRepository {
     InventoryItem findById(InventoryItemIdentifier identifier);
 
-    void persist(InventoryItemEvent itemEvent);
+    void persist(ReceiveItemEvent itemEvent);
 }
