@@ -3,3 +3,4 @@ target/
 *.mv.db
 *.trace.db
 dependency-reduced-pom.xml
+.mvn/wrapper/maven-wrapper.jar

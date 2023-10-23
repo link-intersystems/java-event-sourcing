@@ -32,7 +32,7 @@ jobs:
       - name: Build with Maven
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-        run: mvn -Pcoveralls -B --update-snapshots test coveralls:report --file pom.xml
+        run: ./mvnw -Pcoveralls -B --update-snapshots test coveralls:report --file pom.xml
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
