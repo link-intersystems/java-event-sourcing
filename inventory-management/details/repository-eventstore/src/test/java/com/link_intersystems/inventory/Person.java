@@ -35,5 +35,13 @@ public class Person {
     public int hashCode() {
         return Objects.hash(getFirstname(), getLastname());
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }
 

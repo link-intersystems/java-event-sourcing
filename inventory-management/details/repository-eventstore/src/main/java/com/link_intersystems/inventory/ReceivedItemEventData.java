@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 public class ReceivedItemEventData extends AbstractItemEventData implements ItemEventData {
 
-    public ReceivedItemEventData(){
+    public ReceivedItemEventData() {
     }
 
-    public ReceivedItemEventData(ReceiveItemEvent event){
+    public ReceivedItemEventData(ReceiveItemEvent event) {
         setIdentifier(event.getIdentifier().getValue());
         setQuantity(event.getQuantity().getValue());
         setAppliedTime(event.getAppliedTime().toString());

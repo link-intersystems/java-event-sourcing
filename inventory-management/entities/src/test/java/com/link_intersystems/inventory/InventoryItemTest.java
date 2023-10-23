@@ -1,10 +1,12 @@
 package com.link_intersystems.inventory;
 
+import com.link_intersystems.junit.ext.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@UnitTest
 class InventoryItemTest {
 
     private InventoryItem inventoryItem;

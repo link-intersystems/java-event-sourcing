@@ -1,5 +1,6 @@
 package com.link_intersystems.inventory;
 
+import com.link_intersystems.junit.ext.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,7 @@ import java.util.concurrent.Future;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@UnitTest
 class FutureHandlerTest {
 
     private FutureHandler<String> futureHandler;

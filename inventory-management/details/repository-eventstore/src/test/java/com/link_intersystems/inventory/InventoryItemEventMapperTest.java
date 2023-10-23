@@ -1,6 +1,7 @@
 package com.link_intersystems.inventory;
 
 import com.eventstore.dbclient.EventData;
+import com.link_intersystems.junit.ext.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@UnitTest
 class InventoryItemEventMapperTest {
 
     private InventoryItemEventMapper mapper;

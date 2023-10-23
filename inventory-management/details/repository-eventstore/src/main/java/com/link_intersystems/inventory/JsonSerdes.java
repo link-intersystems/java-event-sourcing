@@ -4,8 +4,9 @@ import com.link_intersystems.beans.*;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import static java.nio.charset.StandardCharsets.*;
 
 public class JsonSerdes implements Serdes {
 
@@ -23,7 +24,7 @@ public class JsonSerdes implements Serdes {
     }
 
     void write(JSONObject jsonObject, OutputStream out) {
-        try (Writer writer = new OutputStreamWriter(out)) {
+        try (Writer writer = new OutputStreamWriter(out, UTF_8)) {
             jsonObject.write(writer);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -35,7 +36,7 @@ public class JsonSerdes implements Serdes {
         BeanClass<?> beanClass = beansFactory.createBeanClass(type);
 
         Bean<?> bean = beanClass.newBeanInstance();
-        JSONObject jsonObject = new JSONObject(new String(data, StandardCharsets.UTF_8));
+        JSONObject jsonObject = new JSONObject(new String(data, UTF_8));
         Map<String, Object> map = jsonObject.toMap();
 
         PropertyList properties = bean.getAllProperties();

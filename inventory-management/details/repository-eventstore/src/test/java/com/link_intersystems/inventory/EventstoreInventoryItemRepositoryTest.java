@@ -1,5 +1,6 @@
 package com.link_intersystems.inventory;
 
+import com.link_intersystems.junit.ext.IntegrationTest;
 import com.link_intersystems.testcontainers.eventsourcedb.EventsourceDBTestcontainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
+@IntegrationTest
 class EventstoreInventoryItemRepositoryTest {
 
     @Container

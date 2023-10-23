@@ -29,7 +29,7 @@ class JsonSerdesTest {
         byte[] serialized = serdes.serialize(person);
         Person deserialized = serdes.deserialize(Person.class, serialized);
 
-        assertEquals(person, deserialized);
+        assertEquals(person, deserialized, () -> person + " != " + deserialized);
     }
 
     @Test

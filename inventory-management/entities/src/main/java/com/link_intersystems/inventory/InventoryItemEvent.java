@@ -20,7 +20,7 @@ public abstract class InventoryItemEvent implements Comparable<InventoryItemEven
     }
 
     public void setAppliedTime(LocalDateTime appliedTime) {
-        if(this.appliedTime != null){
+        if (this.appliedTime != null) {
             throw new IllegalStateException("Event already applied");
         }
         this.appliedTime = appliedTime;

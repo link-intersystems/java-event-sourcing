@@ -27,4 +27,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.link-intersystems.event-sourcing</groupId>
+            <artifactId>junit5-extensions</artifactId>
+            <version>1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
